@@ -13,6 +13,8 @@ module.exports = cds.service.impl(async function () {
                 console.log("error goods cannot be null")
                 return "Error: The 'goods' array is required and cannot be empty.";
             }
+            
+            
             const filename = "sample.xlsx";
             const template = path.join(__dirname, "template", filename);
             const workbook = new exceljs.Workbook();
@@ -60,6 +62,17 @@ module.exports = cds.service.impl(async function () {
             })
             worksheetCI.addImage(signature, 'B16:C17');
             worksheetPL.addImage(signature, 'C16:D17');
+
+            var str = "This is first string\nthis is second string\nThis is third string";
+            var arrayOfStr = str.split('\n');
+            const startingRowStrCI = 20;
+            const startingRowStrPL = 20;
+            arrayOfStr.forEach((item, index) => {
+                const rowStrCI = worksheetCI.getRow(startingRowStrCI + index);
+                const rowStrPL = worksheetPL.getRow(startingRowStrPL + index);
+                rowStrCI.getCell(1).value = item;
+                rowStrPL.getCell(2).value = item;
+            })
             const buffer = await workbook.xlsx.writeBuffer();
             return buffer.toString('base64');
 
