@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+        <edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+        <edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+    </edmx:Reference>
+    <edmx:DataServices>
+        <Schema Namespace="CatalogService" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            <EntityContainer Name="EntityContainer">
+                <EntitySet Name="Books" EntityType="CatalogService.Books"/>
+                <ActionImport Name="downloadTemplate" Action="CatalogService.downloadTemplate"/>
+            </EntityContainer>
+            <EntityType Name="Books">
+                <Key>
+                    <PropertyRef Name="ID"/>
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false"/>
+                <Property Name="title" Type="Edm.String"/>
+                <Property Name="stock" Type="Edm.Int32"/>
+            </EntityType>
+            <ComplexType Name="apHeader">
+                <Property Name="mandt" Type="Edm.Int32"/>
+                <Property Name="bukrs" Type="Edm.String" MaxLength="4"/>
+                <Property Name="zetno" Type="Edm.String" MaxLength="35"/>
+                <Property Name="zarap" Type="Edm.String" MaxLength="2"/>
+                <Property Name="ap_pay_gbn" Type="Edm.String" MaxLength="1"/>
+                <Property Name="id" Type="Edm.String" MaxLength="36"/>
+            </ComplexType>
+            <Action Name="downloadTemplate" IsBound="false">
+                <Parameter Name="params" Type="Collection(CatalogService.apHeader)" Nullable="false"/>
+                <ReturnType Type="Edm.String"/>
+            </Action>
+            <Annotations Target="CatalogService.EntityContainer/Books">
+                <Annotation Term="Capabilities.DeleteRestrictions">
+                    <Record Type="Capabilities.DeleteRestrictionsType">
+                        <PropertyValue Property="Deletable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.InsertRestrictions">
+                    <Record Type="Capabilities.InsertRestrictionsType">
+                        <PropertyValue Property="Insertable" Bool="false"/>
+                    </Record>
+                </Annotation>
+                <Annotation Term="Capabilities.UpdateRestrictions">
+                    <Record Type="Capabilities.UpdateRestrictionsType">
+                        <PropertyValue Property="Updatable" Bool="false"/>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/mandt">
+                <Annotation Term="Common.Label" String="클라이언트  MANDT"/>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/bukrs">
+                <Annotation Term="Common.Label" String="회사코드  BUKRS"/>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/zetno">
+                <Annotation Term="Common.Label" String="기타참조번호  ZETNO_DTI"/>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/zarap">
+                <Annotation Term="Common.Label" String="AR/AP 구분  ZARAP_DTI"/>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/ap_pay_gbn">
+                <Annotation Term="Common.Label" String="비용성격(P-전문직/N-전문직외)"/>
+            </Annotations>
+            <Annotations Target="CatalogService.apHeader/id">
+                <Annotation Term="Common.Label" String="AP Detail ID"/>
+            </Annotations>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

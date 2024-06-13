@@ -1,0 +1,63 @@
+<mvc:View
+    xmlns:table="sap.ui.table"
+    xmlns:form="sap.ui.layout.form"
+    controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <form:SimpleForm>
+            <HBox >
+                <Input id="input001" placeholder="Input Invoice No..." width="12rem" class="sapUiSmallMarginEnd"/>
+                <Button
+                    id="button001"
+                    text="Download Excel"
+                    press="onDownloadBtnPress"
+                    type="Emphasized"
+                    width="12rem"
+                />
+            </HBox>
+               
+            </form:SimpleForm>
+            <Table
+                id="table001"
+                mode="MultiSelect"
+                items="{/Goods}"
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title
+                            text="Products"
+                            level="H2"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Description of Goods" />
+                    </Column>
+                    <Column>
+                        <Text text="Unit" />
+                    </Column>
+                    <Column>
+                        <Text text="Quantity" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <Text text="{description}" />
+                            <Text text="{unit}" />
+                            <Text text="{quantity}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+    </Page>
+</mvc:View>
